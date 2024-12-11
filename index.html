@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+    <title>DOC Paperwork Generator</title>
+    <img src="https://i.imgur.com/TQiJf5l.png" alt="DOC logo" />
+
+    <style>
+        /* Set background color for the body */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* Full viewport height */
+            position: relative;
+            /* Set relative positioning to the body */
+        }
+
+
+        /* Position the image in the top right corner */
+        img {
+            position: absolute;
+            /* Absolute positioning */
+            top: 10px;
+            /* Space from the top */
+            left: 10px;
+            /* Space from the right */
+            width: 150px;
+            /* Image width */
+            height: auto;
+            /* Maintain aspect ratio */
+            z-index: 1000;
+        }
+    </style>
+</head>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .center-top {
+            text-align: center;
+            /* Center text horizontally */
+            margin: 0;
+            /* Remove default margins */
+            padding-top: 10px;
+            /* Optional: Add some spacing from the top */
+        }
+    </style>
+    <div class="center-top">
+        <h1>DOC Paperwork Generator</h1>
+        <p>If you find any issues or have a suggestion, contact <b>Alphus</b> on Discord</p>
+    </div>
+
+
+  <!-- Navigation Buttons -->
+<div class="container mt-3 d-flex justify-content-center" id="navigationBar">
+    <button class="btn btn-success me-2" onclick="showSection('dutyReportSection', this)">Duty Report</button>
+    <button class="btn btn-secondary me-2" onclick="showSection('forceSixSection', this)">Force 6 Report</button>
+    <button class="btn btn-secondary me-2" onclick="showSection('solitarySection', this)">Solitary Report</button>
+    <button class="btn btn-secondary me-2" onclick="showSection('expenseSection', this)">Expense Request</button>
+</div>
+
+<!-- New Buttons Below -->
+<div class="container mt-3 d-flex justify-content-center" id="additionalNavigationBar">
+    <button class="btn btn-secondary me-2" onclick="showSection('certReportSection', this)">CERT Report</button>
+    <button class="btn btn-secondary me-2" onclick="showSection('cftDutyReportSection', this)">CFT Duty Report</button>
+    <button class="btn btn-secondary me-2" onclick="showSection('workOrderSection', this)">Work Order</button>
+</div>
+
+
+    </div>
+<script>
+    $(document).ready(function () {
+        // Hide all sections initially
+        $('.container').hide();
+
+        // Show only the Duty Report section by default
+        $('#dutyReportSection').show();
+
+        // Highlight the Duty Report button as active
+        $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
+        $('#navigationBar button[data-section="dutyReportSection"]').removeClass('btn-secondary').addClass('btn-success');
+    });
+
+    function showSection(sectionId, button) {
+        // Hide all sections
+        $('.container').hide();
+
+        // Show the selected section
+        $('#' + sectionId).show();
+
+        // Reset all buttons inside #navigationBar to btn-secondary
+        $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
+
+        // Highlight the clicked button with btn-success
+        $(button).removeClass('btn-secondary').addClass('btn-success');
+    }
+</script>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Background Color Example</title>
+        <style>
+            body {
+                background-color: #2c6a37;
+                /* Dark green */
+                color: white;
+                /* White text */
+            }
+        </style>
+    </head>
+
+
+    <!-- Duty Report -->
+    <div id="dutyReportSection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+            <div class="card-body">
+                <!-- Duty Report Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date of Report:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtdateOfReport" class="form-control" style="width: 600px"placeholder="DD/MMM/YYYY" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Hours on duty:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtDutyHours" class="form-control" style="width: 600px"placeholder="0h0m" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">10-15s Processed:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtInmatesDone" class="form-control" style="width: 600px"placeholder="XX" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">A detailed description of the General Duties performed during your watch and potential situations handled:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtGeneralDuties" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">A detailed description of Divisional Duties performed during your watch:</div>
+                    <div class="col-md-10">
+                        <textarea type="text" id="txtDivisionDuties" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                             <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createDutyReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyDutyReportSuccess"></p>
+                        <textarea id="displayDutyReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function createDutyReport() {
+            const dateofReport = $('#txtdateOfReport').val();
+            const hoursonDuty = $('#txtDutyHours').val();
+            const inamatesProcessed = $('#txtInmatesDone').val();
+            const generalDuties = $('#txtGeneralDuties').val();
+            const divisionDuties = $('#txtDivisionDuties').val();
+                           
+          
+ const dutyTemplate = `
+[img]https://i.imgur.com/IRwlwRE.png[/img]
+[docsubtitle]Duty Report Details[/docsubtitle]
+[divbox=white]
+[ol][/ol]
+[b]Date of Report:[/b] ${dateofReport}
+[ol][/ol]
+[hr]
+[ol][/ol]
+[b]Hours on duty:[/b] ${hoursonDuty}
+[ol][/ol]
+[hr]
+[ol][/ol]
+[b]10-15s Processed:[/b] ${inamatesProcessed}
+[ol][/ol]
+[/divbox]
+[ol][/ol]
+[docsubtitle]General Duties Log[/docsubtitle]
+[divbox=white]
+[ol][/ol]
+[i]${generalDuties}[/i]
+[ol][/ol][/divbox]
+[docsubtitle]Divisional Duties Log[/docsubtitle]
+[divbox=white]
+[ol][/ol]
+[i]${divisionDuties} [/i]
+[ol][/ol]
+[/divbox]
+[img]https://i.imgur.com/EYwU3XA.png[/img]
+        `;
+  document.getElementById("displayDutyReportBB").value = dutyTemplate.trim();
+            document.querySelector("#displayDutyReportBB").select();
+            document.execCommand('copy');
+
+            $('#copyDutyReportSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+ <!--Force 6 -->
+    <div id="forceSixSection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+            <div class="card-body">
+
+ <!-- Force 6 Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtdateForce" class="form-control" style="width: 600px"placeholder="DD/MMM/YYYY" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Officers name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtOfficerName" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Any witnesses (Officers, other inmates, visitors):</div>
+                    <div class="col-md-10">
+                        <textarea type="text" id="txtForceWitness" class="form-control" style="width: 600px" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank & Badge Number:</div>
+                    <div class="col-md-10">
+                       <input type="text" id="txtRankBadge" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+<div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Lethal Weapon(s) utilized for force 6:</div>
+<div class="col-md-10">
+                       <textarea type="text" id="txtLethalWeapons" class="form-control" style="width: 600px" rows="3"></textarea>
+                    </div>
+                </div>
+ <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Situation:</div>
+                    <div class="col-md-10">
+                       <textarea type="text" id="txtForceSituation" class="form-control" style="width: 600px" rows="5"placeholder="Include the events that took place all the way up to when you had to use Force ^"></textarea>
+                    </div>
+                </div>
+<div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Conclusion:</div>
+                    <div class="col-md-10">
+                       <textarea type="text" id="txtForceConclusion" class="form-control" style="width: 600px" rows="5"placeholder="Try to include if anyone needed medical attention, if there were any casualties, if inmates were charged or put into cells etc."></textarea>
+                    </div>
+                </div>
+<div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Bodycam footage attachment:</div>
+                    <div class="col-md-10">
+                       <input type="text" id="txtForceBodycam" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+<div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
+                    <div class="col-md-10">
+                       <input type="text" id="txtForceProof" class="form-control" style="width: 600px"placeholder="MANDATORY" />
+                    </div>
+                </div>
+                            <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createForceReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyForceReportSuccess"></p>
+                        <textarea id="displayForceReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+function createForceReport() {
+            const dateofForce = $('#txtdateForce').val();
+            const officersName = $('#txtOfficerName').val();
+            const forceWitness = $('#txtForceWitness').val();
+            const rankBadge = $('#txtRankBadge').val();
+            const lethalWeapons = $('#txtLethalWeapons').val();
+	    const forceSituation = $('#txtForceSituation').val();
+	    const forceConclusion = $('#txtForceConclusion').val();
+	    const forceFootage = $('#txtForceBodycam').val();
+	    const rpProof = $('#txtForceProof').val();
+ const forceTemplate = `
+[img]https://i.imgur.com/SCK366b.png[/img]
+[docsubtitle]Force 6 Report Details[/docsubtitle]
+[divbox=white]
+[b]Date:[/b] ${dateofForce}
+[hr]
+[ol][/ol]
+[b]Officers name:[/b] ${officersName}
+[hr]
+[ol][/ol]
+[b]Any witnesses? (Officers, other inmates, visitors)[/b] ${forceWitness}
+[hr]
+[ol][/ol]
+[b]Rank & Badge Number:[/b] ${rankBadge}
+[hr]
+[ol][/ol]
+[b]Lethal weapon(s) utilized for force 6:[/b] ${lethalWeapons}
+[hr]
+[ol][/ol]
+[b]Situation:[/b] ${forceSituation}
+[hr]
+[ol][/ol]
+[b]Conclusion:[/b] ${forceConclusion}
+[hr]
+[ol][/ol]
+[b]Bodycam footage attachment:[/b] ${forceFootage}
+[hr]
+[ol][/ol]
+[ooc]
+[b][color=#FF0000]MANDATORY:[/color][/b][spoiler=Proof of Bodycam RP][img]${rpProof}[/img][/spoiler]
+[/ooc]
+[/divbox]
+[img]https://i.imgur.com/EYwU3XA.png[/img]
+ `;
+  document.getElementById("displayForceReportBB").value = forceTemplate.trim();
+            document.querySelector("#displayForceReportBB").select();
+            document.execCommand('copy');
+
+            $('#copyForceReportSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+ <!-- Solitary -->
+    <div id="solitarySection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+            <div class="card-body">
+ <!-- Solitary Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date & Time of Report:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtdatetime" class="form-control" style="width: 600px"placeholder="DD/MMM/YYYY XX:XX" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name, Rank & Badge Number:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtnamerankBadge" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">10-15s Confined:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txttensConfined" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time Sentenced:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txttimeSentenced" class="form-control" style="width: 600px"placeholder="XX" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Log:</div>
+                    <div class="col-md-10">
+                        <textarea type="text" id="txtlog" class="form-control" style="width: 600px"rows="5"placeholder="A detailed description of events leading to solitary, the reasoning for the time sentenced. And the authorizing Officer (If over 45 Days)"></textarea>
+                    </div>
+                </div>
+          <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createSolitaryReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copySolitaryReportSuccess"></p>
+                        <textarea id="displaySolitaryReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function createSolitaryReport() {
+            const datetime = $('#txtdatetime').val();
+            const namerankbadge = $('#txtnamerankBadge').val();
+            const tensconfined = $('#txttensConfined').val();
+            const timesentenced = $('#txttimeSentenced').val();
+            const loginfo = $('#txtlog').val();
+const solitaryTemplate = `
+[img]https://i.imgur.com/R6uBrxX.png[/img]
+[docsubtitle]Solitary Report Details[/docsubtitle]
+[divbox=white]
+[ol][/ol]
+[b]Date and Time of Report:[/b] 
+[ol]${datetime}[/ol]
+[hr]
+[ol][/ol]
+[b]Name, Rank, and Badge Number:[/b] ${namerankbadge}
+[hr]
+[ol][/ol]
+[b]10-15s Confined:[/b] ${tensconfined}
+[hr]
+[b]Time Sentenced:[/b] 
+[ol]${timesentenced} Days[/ol]
+[/divbox]
+[ol][/ol]
+[docsubtitle]Log[/docsubtitle]
+[divbox=white][ol][/ol]
+[i]A detailed description of events leading to solitary, the reasoning for the time sentenced. And the authorizing Officer (If over 45 Days)[/i]
+[ol]${loginfo}[/ol]
+[/divbox]
+[img]https://i.imgur.com/EYwU3XA.png[/img]
+ `;
+  document.getElementById("displaySolitaryReportBB").value = solitaryTemplate.trim();
+            document.querySelector("#displaySolitaryReportBB").select();
+            document.execCommand('copy');
+
+            $('#copySolitaryReportSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+<!--Force 6 -->
+    <div id="expenseSection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+            <div class="card-body">
+<!-- Expense Form Fields -->
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpensename" class="form-control" style="width: 600px" />
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpenserank" class="form-control" style="width: 600px" />
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Item & Quantity:</div>
+    <div class="col-md-10">
+        <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
+            <input type="text" id="itemInput" placeholder="Item" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <span style="margin: 0 10px; color: #555; font-weight: bold;">|</span>
+            <input type="text" id="quantityInput" placeholder="Quantity" style="border: none; outline: none; flex: 1; padding: 5px;" />
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <button id="addButton" class="btn btn-primary">Add</button>
+        <button id="removeButton" class="btn btn-danger">Remove Last</button>
+    </div>
+</div>
+
+<ul id="itemList" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Reason for purchase:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpensereason" class="form-control" style="width: 600px" />
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Price:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpenseprice" class="form-control" style="width: 600px" />
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date of purchase:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpensedate" class="form-control" style="width: 600px"placeholder="DD/MMM/YYYY" />
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of purchase:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpenseproof" class="form-control" style="width: 600px" />
+    </div>
+</div>
+ <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createExpenseReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyExpenseReportSuccess"></p>
+                        <textarea id="displayExpenseReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// Function to generate the expense report with the added items
+function createExpenseReport() {
+    const expensename = $('#txtexpensename').val();
+    const expenserank = $('#txtexpenserank').val();
+    const expensereason = $('#txtexpensereason').val();
+    const expenseprice = $('#txtexpenseprice').val();
+    const expensedate = $('#txtexpensedate').val();
+    const expenseproof = $('#txtexpenseproof').val();
+
+    // Create the itemListString by looping through the items in the list
+    let itemListString = '';
+    const itemList = document.getElementById("itemList");
+    const listItems = itemList.getElementsByTagName("li");
+    
+    // Loop through all list items and build the itemListString
+    for (let i = 0; i < listItems.length; i++) {
+        itemListString += listItems[i].textContent + '\n'; // Adding a new line after each item
+    }
+
+    // Create the BBCode template
+    const expenseTemplate = `
+[img]https://i.imgur.com/7FFrt7W.png[/img]
+[docsubtitle]Employee Information[/docsubtitle]
+
+[divbox=white]
+[list=none]
+[b]Name:[/b] ${expensename}
+[b]Rank:[/b] ${expenserank}
+[/list]
+[/divbox]
+
+[docsubtitle]Expense Information[/docsubtitle]
+
+[divbox=white]
+[list=none]
+[b]Item(s) purchased:[/b] 
+${itemListString}
+[b]Reason for purchase:[/b] ${expensereason}
+[b]Price:[/b] ${expenseprice}
+[b]Date of purchase:[/b] ${expensedate}
+[b]Proof of purchase:[/b] [url=${expenseproof}]Proof[/url]
+[/list]
+[/divbox]
+
+[img]https://i.imgur.com/EYwU3XA.png[/img]
+ `;
+
+    // Display the BBCode and copy it to clipboard
+    document.getElementById("displayExpenseReportBB").value = expenseTemplate.trim();
+    document.querySelector("#displayExpenseReportBB").select();
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyExpenseReportSuccess').text('Copied to clipboard!');
+}
+
+</script>
+
+<!-- CERT Report -->
+<div id="certReportSection" class="container mt-3 myHideableSection">
+    <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+        <div class="card-body">
+            <!-- CERT Fields -->
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertdate" class="form-control" style="width: 600px" placeholder="DD/MMM/YYYY" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Officers name:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertname" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Other CERT staff:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertstaff" class="form-control" style="width: 600px"placeholder="Seperate names with commas" />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Non CERT staff (Officers, other inmates, visitors):</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertnonstaff" class="form-control" style="width: 600px"placeholder="Seperate names with commas" />
+                </div>
+            </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank within CERT:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertrank" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon(s) deployed:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertweapon" class="form-control" style="width: 600px"placeholder="Seperate weapon(s) with commas" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Conclusion:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtconclusion" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Situation:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcertsituation" class="form-control" style="width: 600px"rows="5" placeholder="A detailed description of the situation"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createCERTReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyCERTReportSuccess"></p>
+                        <textarea id="displayCERTReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <script>
+function createCERTReport() {
+    // Get the input field values
+    const certdate = $('#txtcertdate').val();
+    const certname = $('#txtcertname').val();
+    const noncert = $('#txtcertnonstaff').val();
+    const othercert = $('#txtcertstaff').val();
+    const certrank = $('#txtcertrank').val();
+    const certweapon = $('#txtcertweapon').val();
+    const certconclusion = $('#txtconclusion').val();
+    const certsituation = $('#txtcertsituation').val();
+
+ 
+    // BBCode Template with updated staff lists
+    const certTemplate = `
+[img]https://imgur.com/E58Frv0.png[/img]
+[doccsubtitle=#111111,#686867]CERT Situation Report[/doccsubtitle]
+[divbox=white]
+[ol][/ol]
+[b]Date:[/b] 
+[ol]${certdate}[/ol]
+[hr]
+[ol][/ol]
+[b]Officers name:[/b] 
+[ol]${certname}[/ol]
+[hr]
+[ol][/ol]
+[b]Other CERT staff:[/b] 
+[ol]${othercert}[/ol]
+[hr]
+[ol][/ol]
+[b]Non CERT staff (Officers, other inmates, visitors):[/b] 
+[ol]${noncert}[/ol]
+[hr]
+[ol][/ol]
+[b]Rank within CERT:[/b] 
+[ol]${certrank}[/ol]
+[hr]
+[ol][/ol]
+[b]Weapon(s) deployed:[/b] 
+[ol]${certweapon}[/ol]
+[hr]
+[ol][/ol]
+[b]Conclusion:[/b] 
+[ol]${certconclusion}[/ol]
+[/divbox]
+[doccsubtitle=#111111,#686867]Situation[/doccsubtitle]
+[divbox=white]
+[i]${certsituation}[/i]
+[ol][/ol][ol][/ol]
+[/divbox]
+`;
+
+    // Display the BBCode in the textarea
+    document.getElementById("displayCERTReportBB").value = certTemplate.trim();
+
+    // Select the textarea content
+    document.querySelector("#displayCERTReportBB").select();
+
+    // Copy to clipboard
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyCERTReportSuccess').text('Copied to clipboard!');
+}
+</script>
+
+<!-- CFT Report -->
+<div id="cftDutyReportSection" class="container mt-3 myHideableSection">
+    <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+        <div class="card-body">
+  <!-- CFT Fields -->
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Date of Report:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcftdate" class="form-control" style="width: 600px" placeholder="DD/MMM/YYYY" />
+                </div>
+            </div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Mark:</div>
+    <div class="col-md-10">
+        <select id="txtcftmark" class="form-control" style="width: 600px;">
+            <option value="pass">Pass</option>
+            <option value="fail">Fail</option>
+        </select>
+    </div>
+</div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Trainings Completed:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcfttrainings" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Officers involved:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcftofficers" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Description of trainings conducted:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcftdescribe" class="form-control" style="width: 600px"rows="5"placeholder="A detailed description"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createCFTReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyCFTReportSuccess"></p>
+                        <textarea id="displayCFTReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <script>
+function createCFTReport() {
+    const cftdate = $('#txtcftdate').val();
+    const cftmark = $('#txtcftmark').val();
+    const cfttrainings = $('#txtcfttrainings').val();
+    const cftOfficers = $('#txtcftofficers').val();
+    const cftdescribe = $('#txtcftdescribe').val();
+
+    const cftTemplate = `
+[img]https://i.imgur.com/zo6to0g.png[/img]
+[img]https://i.imgur.com/iljOG9F.png[/img]
+[divbox=white]
+[ol][/ol]
+[b]Date of Report:[/b]
+[ol]${cftdate}[/ol]
+[hr]
+[ol][/ol]
+[b]Mark[/b] ([size=125]🗵[/size]): ${cftmark === "pass" ? "[size=125]☑[/size][b] - [color=green]PASS[/color][/b] [size=150][b]|[/b][/size] [size=125]☐[/size][b] - [color=RED]FAIL[/color][/b]" : "[size=125]☐[/size][b] - [color=green]PASS[/color][/b] [size=150][b]|[/b][/size] [size=125]☑[/size][b] - [color=RED]FAIL[/color][/b]"}
+[ol][/ol]
+[hr]
+[ol][/ol]
+[b]Trainings completed:[/b]
+[ol]${cfttrainings}[/ol]
+[hr]
+[ol][/ol]
+[b]Officers involved:[/b]
+[ol]${cftOfficers}[/ol]
+[/divbox]
+[ol][/ol]
+[img]https://i.imgur.com/EiXCx2U.png[/img]
+[divbox=white][ol][/ol]
+[i]A detailed description of the trainings conducted during your watch, and officers involved[/i]
+[ol]${cftdescribe}[/ol]
+[/divbox]
+`;
+
+    // Display the BBCode and copy it to clipboard
+    document.getElementById("displayCFTReportBB").value = cftTemplate.trim();
+    document.getElementById("displayCFTReportBB").select();
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyCFTReportSuccess').text('Copied to clipboard!');
+}
+</script>
+<!-- Work Order Report -->
+<div id="workOrderSection" class="container mt-3 myHideableSection">
+    <div class="card" style="background-color: #2c6a37; color: white;"> <!-- Set background color to #2c6a37 -->
+        <div class="card-body">
+  <!-- Work Order Fields -->
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Work Order:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworknumber" class="form-control" style="width: 600px" placeholder="###" />
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworkdate" class="form-control" style="width: 600px" placeholder="DD/MMM/YYYY" />
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Name & Position:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworkname" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary of the work completed:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworksummary" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Parts acquired, if applicable:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworkparts" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Expenses:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworkexpenses" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Ready for Inspection:</div>
+    <div class="col-md-10">
+        <select id="txtworkinspection" class="form-control" style="width: 600px;">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+</div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">If not, explain why:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworkwhy" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworkrp" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+<div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createWORKReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyWORKReportSuccess"></p>
+                        <textarea id="displayWORKReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function createWORKReport() {
+    const worknumber = $('#txtworknumber').val();
+    const workdate = $('#txtworkdate').val();
+    const workname = $('#txtworkname').val();
+    const worksumm = $('#txtworksummary').val();
+    const workparts = $('#txtworkparts').val();
+    const workexpenses = $('#txtworkexpenses').val();
+    const workinspection = $('#txtworkinspection').val(); // Dropdown value
+    const workwhy = $('#txtworkwhy').val();
+    const workrp = $('#txtworkrp').val();
+
+    const readyForInspection = workinspection === "yes"
+        ? "[X] Yes [ ] No"
+        : "[ ] Yes [X] No";
+
+    const workTemplate = `
+[img]https://i.imgur.com/PNwiHFS.png[/img]
+[divbox=white]
+[img]https://i.imgur.com/YRbH1QY.png[/img][float=right][right][font=Arial][b]
+[size=145]Work Order ${worknumber}[/size]
+[size=100]${workdate}[/size]
+[size=90]${workname}[/size][/b]
+[/font][/right][/float]
+[hr]
+[list=none]
+[b]Summary of the work completed:[/b]
+[i]${worksumm}[/i]
+ 
+ 
+[b]Parts acquired, if applicable:[/b]
+[i]${workparts}[/i]
+ 
+ 
+[b]Expenses:[/b]
+[i]${workexpenses}[/i]
+ 
+ 
+[b]Ready for Inspection?(Mark with a X):[/b]
+[i]${readyForInspection}[/i]
+ 
+[b]If not, explain why:[/b]
+[i]${workwhy}[/i]
+ 
+[spoiler=(( Proof of RP ))]${workrp}[/spoiler]
+ 
+[/list][/divbox]
+[img]https://i.imgur.com/PNwiHFS.png[/img]
+`;
+
+    // Display the BBCode in the textarea
+    document.getElementById("displayWORKReportBB").value = workTemplate.trim();
+
+    // Select the textarea content
+    document.querySelector("#displayWORKReportBB").select();
+
+    // Copy to clipboard
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyWORKReportSuccess').text('Copied to clipboard!');
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+function showSection(sectionId) {
+  // Hide all sections with the class 'myHideableSection'
+    const sections = document.querySelectorAll('.myHideableSection');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+}
+</script>
+
+<script>
+    // Add an event listener for the Add button
+    document.getElementById("addButton").addEventListener("click", function () {
+        const itemInput = document.getElementById("itemInput");
+        const quantityInput = document.getElementById("quantityInput");
+        const itemList = document.getElementById("itemList");
+
+        // Get the values from the inputs
+        const item = itemInput.value.trim();
+        const quantity = quantityInput.value.trim();
+
+        // Check if both fields are filled
+        if (item && quantity) {
+            // Create a new list item
+            const listItem = document.createElement("li");
+            listItem.textContent = `${item} | ${quantity}`;
+            listItem.style.padding = "5px 0";
+            listItem.style.borderBottom = "1px solid #ddd";
+
+            // Add the new list item to the list
+            itemList.appendChild(listItem);
+
+            // Clear the input fields
+            itemInput.value = "";
+            quantityInput.value = "";
+
+            // Focus back on the first input
+            itemInput.focus();
+        } else {
+            alert("Please fill in both fields before adding.");
+        }
+    });
+
+    // Add an event listener for the Remove Last button
+    document.getElementById("removeButton").addEventListener("click", function () {
+        const itemList = document.getElementById("itemList");
+
+        // Remove the last item in the list if it exists
+        if (itemList.lastChild) {
+            itemList.removeChild(itemList.lastChild);
+        } else {
+            alert("No items to remove.");
+        }
+    });
+</script>
